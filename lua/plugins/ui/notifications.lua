@@ -1,5 +1,4 @@
 ---@type LazySpec
--- NOTE: Notification and UI message management (Noice + Snacks)
 return {
   {
     "folke/noice.nvim",
@@ -45,6 +44,28 @@ return {
       notifier = {
         enabled = true,
         timeout = 3000,
+      },
+      picker = {
+        enabled = true,
+        ui_select = true,
+        layouts = {
+          select = {
+            preview = false,
+            layout = {
+              relative = "editor",
+              width = 0.5,
+              min_width = 80,
+              height = 0.4,
+              min_height = 10,
+              box = "vertical",
+              border = "rounded",
+              title = "{title}",
+              title_pos = "center",
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", border = "none" },
+            },
+          },
+        },
       },
     },
   },
