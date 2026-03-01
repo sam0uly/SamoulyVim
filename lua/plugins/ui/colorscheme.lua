@@ -53,4 +53,8 @@ return {
     "dasupradyumna/midnight.nvim",
     lazy = true,
   },
+  {
+    "RRethy/base16-nvim",
+    lazy = false,
+  },
 }
