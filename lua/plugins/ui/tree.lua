@@ -124,6 +124,9 @@ return {
     "folke/snacks.nvim",
     opts = {
       explorer = { enabled = false },
+      indent = {
+        enabled = true,
+      },
     },
     keys = {
       { "<leader>e", false },

@@ -9,6 +9,5 @@ vim.opt.shell = vim.fn.has("win32") == 1 and "powershell" or "bash"
 vim.opt.shellcmdflag = "-c"
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
-
 vim.opt.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50"
 vim.opt.guifont = "ComicShannsMono Nerd Font Mono:h12"
