@@ -2,26 +2,26 @@
 -- Generated from wallpaper using material-color-utilities
 
 require("base16-colorscheme").setup({
-	base00 = "#161217",
-	base01 = "#100d12",
-	base02 = "#1e1a20",
-	base03 = "#4b454d",
-	base04 = "#cdc3ce",
-	base05 = "#e8e0e8",
-	base06 = "#332f35",
-	base07 = "#3c383e",
-	base08 = "#f1a1a6",
-	base09 = "#f4b7bb",
-	base0A = "#d1c1d9",
-	base0B = "#deb9f7",
-	base0C = "#663a3e",
-	base0D = "#583a6f",
-	base0E = "#4e4256",
-	base0F = "#baa1c6",
+	base00 = "#151218",
+	base01 = "#0f0d13",
+	base02 = "#1d1b20",
+	base03 = "#49454e",
+	base04 = "#cbc4cf",
+	base05 = "#e7e0e8",
+	base06 = "#322f35",
+	base07 = "#3b383e",
+	base08 = "#eca2b4",
+	base09 = "#f0b7c5",
+	base0A = "#cdc2db",
+	base0B = "#d2bcfd",
+	base0C = "#643b46",
+	base0D = "#4f3d74",
+	base0E = "#4b4358",
+	base0F = "#b3a2c8",
 })
 
 -- Make selected text stand out more
 vim.api.nvim_set_hl(0, "Visual", {
-	bg = "#583a6f",
-	fg = "#161217",
+	bg = "#4f3d74",
+	fg = "#151218",
 })
