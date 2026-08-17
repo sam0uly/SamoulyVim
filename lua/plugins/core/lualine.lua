@@ -1,3 +1,5 @@
+local color_cache = { slot = -1, fg = nil, bg = nil }
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -41,6 +43,11 @@ return {
               padding = { left = 1, right = 1 },
 
               color = function()
+                local slot = math.floor(os.time() / 4)
+                if slot == color_cache.slot then
+                  return { fg = color_cache.fg, bg = color_cache.bg, gui = "bold" }
+                end
+                color_cache.slot = slot
                 local hl_groups = {
                   "DiagnosticInfo",
                   "Constant",
@@ -54,12 +61,14 @@ return {
                   "Type",
                   "Directory",
                 }
-                local index = math.floor(os.time() / 4) % #hl_groups + 1
+                local index = slot % #hl_groups + 1
 
                 local fg_color = Snacks.util.color(hl_groups[index])
                 local hl = vim.api.nvim_get_hl(0, { name = "NeoTreeNormal", link = false })
                 local bg_color = hl.bg and string.format("#%06x", hl.bg)
 
+                color_cache.fg = fg_color
+                color_cache.bg = bg_color
                 return {
                   fg = fg_color,
                   bg = bg_color,
@@ -71,6 +80,30 @@ return {
           },
 
           lualine_x = {
+            {
+              function()
+                return " "
+              end,
+              color = function()
+                local status = require("sidekick.status").get()
+                if status then
+                  return status.kind == "Error" and "DiagnosticError" or status.busy and "DiagnosticWarn" or "Special"
+                end
+              end,
+              cond = function()
+                return require("sidekick.status").get() ~= nil
+              end,
+            },
+            {
+              function()
+                local status = require("sidekick.status").cli()
+                return " " .. (#status > 1 and #status or "")
+              end,
+              cond = function()
+                return #require("sidekick.status").cli() > 0
+              end,
+              color = "Special",
+            },
             {
               "diagnostics",
               symbols = {
@@ -108,6 +141,6 @@ return {
 
   {
     "christopher-francisco/tmux-status.nvim",
-    enabled = false,
+    enabled = true,
   },
 }
