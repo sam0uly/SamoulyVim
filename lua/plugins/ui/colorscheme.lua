@@ -14,7 +14,8 @@ return {
   {
     "Ferouk/bearded-nvim",
     name = "bearded",
-    priority = 1000,
+    lazy = true,
+    event = "ColorScheme",
     build = function()
       -- Generate helptags so :h bearded-theme works
       local doc = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy", "bearded", "doc")
@@ -25,6 +26,12 @@ return {
     "rose-pine/neovim",
     name = "rose-pine",
     lazy = true,
+  },
+  {
+    "thesimonho/kanagawa-paper.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
   },
   {
     "nyoom-engineering/oxocarbon.nvim",
@@ -55,6 +62,6 @@ return {
   },
   {
     "RRethy/base16-nvim",
-    lazy = false,
+    enabled = false,
   },
 }
