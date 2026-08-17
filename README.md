@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Last commit](https://img.shields.io/github/last-commit/N1xev/SamoulyVim?style=for-the-badge&logo=git&color=000F10&logoColor=dark%20orange&labelColor=302D41)
-[![](https://img.shields.io/badge/Neovim-0.11.4+-blueviolet.svg?style=for-the-badge&color=000F10&logo=Neovim&logoColor=green&labelColor=302D41)](https://github.com/neovim/neovim)
+[![](https://img.shields.io/badge/Neovim-0.12.4+-blueviolet.svg?style=for-the-badge&color=000F10&logo=Neovim&logoColor=green&labelColor=302D41)](https://github.com/neovim/neovim)
 <img src="image.png">
 
 </div>
