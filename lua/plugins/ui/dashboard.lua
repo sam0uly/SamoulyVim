@@ -38,32 +38,9 @@ return {
           ]],
         }
 
-        local data_dir = vim.fn.stdpath("data") .. "/snacks_header_index.txt"
-
-        local current_index = 1
-        local file = io.open(data_dir, "r")
-        if file then
-          local content = file:read("*a")
-          file:close()
-          if content and content ~= "" then
-            current_index = tonumber(content) or 1
-          end
-        end
-
-        local header = headers[current_index]
-
-        current_index = current_index + 1
-        if current_index > #headers then
-          current_index = 1
-        end
-
-        file = io.open(data_dir, "w")
-        if file then
-          file:write(tostring(current_index))
-          file:close()
-        end
-
-        return header
+        local idx = vim.g.dashboard_header_idx or math.random(1, #headers)
+        vim.g.dashboard_header_idx = (idx % #headers) + 1
+        return headers[idx]
       end
 
       local header_cmd
@@ -151,9 +128,7 @@ return {
               icon = " ",
               title = "Git Status",
               section = "terminal",
-              enabled = function()
-                return Snacks.git.get_root() ~= nil
-              end,
+              enabled = false,
               cmd = "git status --short --branch --renames",
               height = 5,
               padding = 1,

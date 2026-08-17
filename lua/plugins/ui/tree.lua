@@ -29,25 +29,17 @@ return {
       "NvimTreeFindFile",
       "NvimTreeFindFileToggle",
     },
-    init = function()
-      vim.api.nvim_create_autocmd("VimEnter", {
-        callback = function()
-          if vim.fn.isdirectory(vim.fn.expand("%")) == 1 then
-            require("nvim-tree.api").tree.open()
-          end
-        end,
-      })
-    end,
     opts = {
       on_attach = on_attach,
       hijack_cursor = true,
       sync_root_with_cwd = true,
       hijack_netrw = true,
+      hijack_directories = { enable = false },
       diagnostics = {
         enable = true,
       },
       update_focused_file = {
-        enable = true,
+        enable = false,
         update_cwd = false,
         ignore_list = {},
       },
@@ -66,7 +58,7 @@ return {
       renderer = {
         highlight_git = true,
         root_folder_label = function(path)
-          return "✦  " .. vim.fn.fnamemodify(path, ":t")
+          return "  " .. vim.fn.fnamemodify(path, ":t")
         end,
         indent_width = 2,
         icons = {
@@ -91,12 +83,15 @@ return {
             folder = {
               arrow_closed = "",
               arrow_open = "",
-              default = "",
-              open = "",
-              empty = "",
-              empty_open = "",
-              symlink = "",
-              symlink_open = "",
+
+              default = "󰉋",
+              open = "󰝰",
+
+              empty = "󰉖",
+              empty_open = "󰷏",
+
+              symlink = "󰉒",
+              symlink_open = "󰷐",
             },
             default = "󱓻",
             symlink = "󱓻",
@@ -123,10 +118,12 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      -- Snacks dashboard auto-opens on `nvim <dir>` by default; setting
+      -- explorer.enabled = true would intentionally skip the dashboard
+      -- (snacks/dashboard.lua:1123) and open snacks' file picker instead.
+      -- We want the dashboard, so keep explorer disabled and use nvim-tree.
       explorer = { enabled = false },
-      indent = {
-        enabled = true,
-      },
+      indent = { enabled = true },
     },
     keys = {
       { "<leader>e", false },
