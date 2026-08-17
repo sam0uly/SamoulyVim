@@ -6,7 +6,8 @@ return {
     "folke/which-key.nvim",
     opts = {
       spec = {
-        { "<leader>T", group = "terminal" }, -- Labels your new terminal group
+        { "<leader>t", group = "terminal" }, -- Labels your new terminal group
+        { "<leader>T", group = "test" }, -- Labels your new terminal group
         { "<leader>o", group = "opencode" }, -- Renames the "o" group to "opencode"
         { "<leader>P", group = "plugins" },
       },
