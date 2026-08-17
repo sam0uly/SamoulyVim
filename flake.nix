@@ -41,6 +41,7 @@
         rustup
         nodejs
         python3
+        icu
 
         lua-language-server
         nil
@@ -64,6 +65,7 @@
           export XDG_CONFIG_HOME="$HOME/.config"
           export XDG_DATA_HOME="$HOME/.local/share/slvim"
           export XDG_STATE_HOME="$HOME/.local/state/slvim"
+          export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
           if [ ! -f "$HOME/.config/slvim/init.lua" ]; then
             echo "Initializing SamoulyVim config in $HOME/.config/slvim..."
