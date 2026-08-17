@@ -5,7 +5,7 @@ vim.opt.sessionoptions = "buffers,curdir,tabpages,winsize,help,globals,skiprtp,f
 vim.opt.wrap = false
 
 -- Set default shell
-vim.opt.shell = vim.fn.has("win32") == 1 and "powershell" or "bash"
+vim.opt.shell = vim.fn.has("win32") == 1 and "powershell" or "fish"
 vim.opt.shellcmdflag = "-c"
 vim.opt.shellquote = ""
 vim.opt.shellxquote = ""
