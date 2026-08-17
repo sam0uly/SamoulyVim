@@ -102,7 +102,7 @@ return {
               cond = function()
                 return #require("sidekick.status").cli() > 0
               end,
-              color = "Special",
+              color = { fg = "Special" },
             },
             {
               "diagnostics",
