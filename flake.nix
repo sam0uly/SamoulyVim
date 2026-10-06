@@ -23,8 +23,6 @@
 
       pkgs = nixpkgs.legacyPackages.${system};
 
-      opencode = opencode-flake.packages.${system}.default;
-
       configFiles = pkgs.stdenv.mkDerivation {
         name = "slvim-config";
         src = ./.;
