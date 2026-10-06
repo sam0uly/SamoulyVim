@@ -115,7 +115,7 @@ fi
 
 echo -e "${PURPLE}[REPO] Setting up SamoulyVim config...${NC}"
 CONFIG_DIR="$HOME/.config/nvim"
-REPO_URL="https://github.com/N1xev/SamoulyVim.git"
+REPO_URL="https://github.com/sam0uly/SamoulyVim.git"
 
 if [ -d "$CONFIG_DIR" ]; then
   echo -e "${YELLOW}[WARN] Config directory $CONFIG_DIR already exists.${NC}"

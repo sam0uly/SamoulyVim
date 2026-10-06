@@ -24,7 +24,7 @@ return {
       },
       {
         label = "GithHub",
-        url = "https://github.com/N1xev",
+        url = "https://github.com/sam0uly",
       },
     },
   },

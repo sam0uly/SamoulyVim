@@ -80,7 +80,7 @@ foreach ($sel in $selected) {
 Write-Host "[REPO] Setting up SamoulyVim config..." -ForegroundColor Magenta
 
 $ConfigDir = "$env:LOCALAPPDATA\nvim"
-$RepoUrl = "https://github.com/N1xev/SamoulyVim.git"
+$RepoUrl = "https://github.com/sam0uly/SamoulyVim.git"
 
 if (Test-Path $ConfigDir) {
     Write-Host "[WARN] Config directory $ConfigDir already exists." -ForegroundColor Yellow

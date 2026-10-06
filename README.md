@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Last commit](https://img.shields.io/github/last-commit/N1xev/SamoulyVim?style=for-the-badge&logo=git&color=000F10&logoColor=dark%20orange&labelColor=302D41)
+![Last commit](https://img.shields.io/github/last-commit/sam0uly/SamoulyVim?style=for-the-badge&logo=git&color=000F10&logoColor=dark%20orange&labelColor=302D41)
 [![](https://img.shields.io/badge/Neovim-0.12.4+-blueviolet.svg?style=for-the-badge&color=000F10&logo=Neovim&logoColor=green&labelColor=302D41)](https://github.com/neovim/neovim)
 <img src="preview.png">
 
@@ -35,13 +35,13 @@ Please follow these steps:
    - On Linux/MacOS:
 
 ```sh
- bash <(curl -s https://raw.githubusercontent.com/N1xev/SamoulyVim/main/install.sh)
+ bash <(curl -s https://raw.githubusercontent.com/sam0uly/SamoulyVim/main/install.sh)
 ```
 
 - On Windows (Powershell):
 
 ```ps1
- Invoke-WebRequest https://raw.githubusercontent.com/N1xev/SamoulyVim/main/install.ps1 -UseBasicParsing | Invoke-Expression
+ Invoke-WebRequest https://raw.githubusercontent.com/sam0uly/SamoulyVim/main/install.ps1 -UseBasicParsing | Invoke-Expression
 ```
 
 The installer will:
@@ -57,7 +57,7 @@ Since i have flake.nix file we can install it with some ways:
 - test it with `nix run`:
 
 ```sh
-nix run github:N1xev/SamoulyVim
+nix run github:sam0uly/SamoulyVim
 ```
 
 - the flakes way:
@@ -68,7 +68,7 @@ nix run github:N1xev/SamoulyVim
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    samoulyvim.url = "github:N1xev/SamoulyVim";
+    samoulyvim.url = "github:sam0uly/SamoulyVim";
   };
 
   # ... inside your outputs
@@ -125,7 +125,7 @@ choco install opencode ripgrep fd lazygit go rust nodejs python
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/N1xev/SamoulyVim ~/.config/nvim
+git clone https://github.com/sam0uly/SamoulyVim ~/.config/nvim
 ```
 
 2. Start Neovim:
