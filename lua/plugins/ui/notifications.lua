@@ -23,6 +23,15 @@ return {
           view = "mini",
         },
       },
+      cmdline = {
+        format = {
+          -- plain butter text: no treesitter recoloring of what you type
+          cmdline = { lang = false },
+          lua = { lang = false },
+          filter = { lang = false },
+          calculator = { lang = false },
+        },
+      },
       presets = {
         bottom_search = false,
         command_palette = true,
