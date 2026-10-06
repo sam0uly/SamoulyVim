@@ -1,88 +1,101 @@
-local color_cache = { slot = -1, fg = nil, bg = nil }
+local c = {
+  bg = "#2D2C36",
+  bg_dark = "#201F26",
+  charcoal = "#3A3943",
+  fg = "#BFBCC8",
+  fg_dim = "#858392",
+  purple = "#6B50FF",
+  mint = "#00FFB2",
+  orange = "#FF985A",
+  red = "#EB4268",
+  yellow = "#F5EF34",
+  pink = "#FF60FF",
+  hazy = "#8B75FF",
+  butter = "#FFFAF1",
+  cheeky = "#FF79D0",
+  teal = "#0ADCD9",
+  blue = "#00A4FF",
+}
 
+local block = { fg = c.bg, gui = "bold" }
+
+local function mode_block(bg)
+  return { fg = c.butter, bg = bg, gui = "bold" }
+end
+
+local b_section = { fg = c.teal, bg = c.charcoal }
+local c_section = { fg = c.purple, bg = c.bg_dark }
+
+---@type LazySpec
 return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     init = function()
       vim.opt.laststatus = 3
+      -- Snacks/dashboard can wipe fillchars; keep the charple ╱ filler alive.
+      vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
+        group = vim.api.nvim_create_augroup("lualine_fill_refresh", { clear = true }),
+        callback = function()
+          local fc = vim.opt.fillchars:get()
+          if fc.stl ~= "╱" then
+            fc.stl, fc.stlnc = "╱", "╱"
+            local parts = {}
+            for k, v in pairs(fc) do
+              table.insert(parts, k .. ":" .. v)
+            end
+            vim.opt.fillchars = table.concat(parts, ",")
+          end
+        end,
+      })
     end,
     opts = function()
       local icons = LazyVim.config.icons
 
       return {
         options = {
-          theme = "auto",
+          theme = {
+            normal = { a = mode_block(c.purple), b = b_section, c = c_section },
+            insert = { a = mode_block(c.mint), b = b_section, c = c_section },
+            visual = { a = mode_block(c.orange), b = b_section, c = c_section },
+            replace = { a = mode_block(c.red), b = b_section, c = c_section },
+            command = { a = mode_block(c.cheeky), b = b_section, c = c_section },
+            inactive = {
+              a = { fg = c.fg_dim, bg = c.charcoal },
+              b = { fg = c.fg_dim, bg = c.charcoal },
+              c = { fg = c.fg_dim, bg = c.bg_dark },
+            },
+          },
           globalstatus = true,
-          component_separators = "",
-          section_separators = { left = "", right = "" },
-          disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
+          component_separators = { left = "", right = "" },
+          section_separators = { left = "", right = "" },
+          disabled_filetypes = { statusline = { "alpha", "ministarter" } },
         },
         sections = {
           lualine_a = {
-            { "mode", separator = { left = "┃││", right = "" }, padding = { left = 1, right = 1 } },
+            { "mode", padding = { left = 1, right = 1 } },
           },
-
           lualine_b = {
-            { "branch", icon = "", separator = { right = "" }, padding = { left = 1, right = 1 } },
+            { "branch", icon = "", padding = { left = 1, right = 1 } },
+            { "diff", padding = { left = 0, right = 1 } },
           },
-
           lualine_c = {
-            LazyVim.lualine.root_dir(),
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-            LazyVim.lualine.pretty_path(),
-
-            "%=",
-            {
-              function()
-                local frames = { "󱚝", "󱚟", "󰚩", "󱚡", "󱚣", "󱜙", "󱚥", "", "", "", "✦" }
-                local index = math.floor(os.time() / 4) % #frames + 1
-                return frames[index]
-              end,
-              separator = { left = "", right = "" },
-              padding = { left = 1, right = 1 },
-
+            LazyVim.lualine.root_dir({
               color = function()
-                local slot = math.floor(os.time() / 4)
-                if slot == color_cache.slot then
-                  return { fg = color_cache.fg, bg = color_cache.bg, gui = "bold" }
-                end
-                color_cache.slot = slot
-                local hl_groups = {
-                  "DiagnosticInfo",
-                  "Constant",
-                  "Function",
-                  "String",
-                  "Statement",
-                  "Special",
-                  "Keyword",
-                  "DiagnosticWarn",
-                  "NeoTreeNormal",
-                  "Type",
-                  "Directory",
-                }
-                local index = slot % #hl_groups + 1
-
-                local fg_color = Snacks.util.color(hl_groups[index])
-                local hl = vim.api.nvim_get_hl(0, { name = "NeoTreeNormal", link = false })
-                local bg_color = hl.bg and string.format("#%06x", hl.bg)
-
-                color_cache.fg = fg_color
-                color_cache.bg = bg_color
-                return {
-                  fg = fg_color,
-                  bg = bg_color,
-                  gui = "bold",
-                }
+                return { fg = c.hazy }
               end,
+            }),
+            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+            {
+              LazyVim.lualine.pretty_path(),
+              color = { fg = c.butter, bg = c.bg_dark },
+              padding = { left = 1, right = 1 },
             },
-            "%=",
           },
-
           lualine_x = {
             {
               function()
-                return " "
+                return " "
               end,
               color = function()
                 local status = require("sidekick.status").get()
@@ -95,16 +108,6 @@ return {
               end,
             },
             {
-              function()
-                local status = require("sidekick.status").cli()
-                return " " .. (#status > 1 and #status or "")
-              end,
-              cond = function()
-                return #require("sidekick.status").cli() > 0
-              end,
-              color = { fg = "Special" },
-            },
-            {
               "diagnostics",
               symbols = {
                 error = icons.diagnostics.Error,
@@ -114,27 +117,81 @@ return {
               },
             },
             {
-              "diff",
-              symbols = { added = icons.git.added, modified = icons.git.modified, removed = icons.git.removed },
+              "lsp",
+              icon = "󰰎",
+              color = { fg = c.blue },
+              padding = { left = 1, right = 1 },
+              separator = "",
+            },
+            {
+              require("lazy.status").updates,
+              cond = require("lazy.status").has_updates,
+              color = { fg = c.orange, gui = "bold" },
             },
           },
-
           lualine_y = {
-            { "progress", separator = { left = "" }, padding = { left = 1, right = 1 } },
-            { "location", padding = { left = 0, right = 1 } },
+            {
+              function()
+                local s = vim.fn.searchcount({ maxcount = 999, timeout = 100 })
+                if s and s.total and s.total > 0 then
+                  return string.format("/%d %d", s.total, s.current)
+                end
+                return ""
+              end,
+              cond = function()
+                return vim.v.hlsearch ~= 0
+              end,
+              color = { fg = c.bg, bg = c.yellow, gui = "bold" },
+              padding = { left = 1, right = 1 },
+            },
+            {
+              function()
+                return "REC " .. vim.fn.reg_recording()
+              end,
+              cond = function()
+                return vim.fn.reg_recording() ~= ""
+              end,
+              color = { fg = c.bg, bg = c.red, gui = "bold" },
+              padding = { left = 1, right = 1 },
+            },
+            { "progress", padding = { left = 1, right = 0 } },
+            { "location", padding = { left = 1, right = 1 } },
           },
-
           lualine_z = {
             {
               function()
-                return " " .. os.date("%H:%M:%S%p")
+                return " " .. os.date("%H:%M")
               end,
-              separator = { left = "", right = "││┃" },
+              color = { fg = c.butter, bg = c.pink, gui = "bold" },
               padding = { left = 1, right = 1 },
             },
           },
         },
-        extensions = { "neo-tree", "nvim-tree", "lazy", "fzf" },
+        extensions = {
+          "neo-tree",
+          "nvim-tree",
+          "lazy",
+          "fzf",
+          {
+            filetypes = { "snacks_dashboard", "dashboard" },
+            sections = {
+              lualine_a = {},
+              lualine_b = {},
+              lualine_x = {},
+              lualine_y = {},
+              lualine_z = {},
+              lualine_c = {
+                {
+                  function()
+                    return string.rep("╱", vim.api.nvim_win_get_width(0))
+                  end,
+                  color = { fg = c.purple, bg = c.bg },
+                  padding = { left = 0, right = 0 },
+                },
+              },
+            },
+          },
+        },
       }
     end,
   },
