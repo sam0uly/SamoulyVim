@@ -33,21 +33,10 @@ return {
     event = "VeryLazy",
     init = function()
       vim.opt.laststatus = 3
-      -- Snacks/dashboard can wipe fillchars; keep the charple ╱ filler alive.
-      vim.api.nvim_create_autocmd({ "FileType", "BufWinEnter" }, {
-        group = vim.api.nvim_create_augroup("lualine_fill_refresh", { clear = true }),
-        callback = function()
-          local fc = vim.opt.fillchars:get()
-          if fc.stl ~= "╱" then
-            fc.stl, fc.stlnc = "╱", "╱"
-            local parts = {}
-            for k, v in pairs(fc) do
-              table.insert(parts, k .. ":" .. v)
-            end
-            vim.opt.fillchars = table.concat(parts, ",")
-          end
-        end,
-      })
+    end,
+    config = function(_, opts)
+      require("lualine").setup(opts)
+      vim.opt.fillchars:append({ stl = "╱", stlnc = "╱" })
     end,
     opts = function()
       local icons = LazyVim.config.icons
