@@ -1045,3 +1045,8 @@ hl(0, "DashboardSlash", { fg = p.charple, bg = p.bbq })
 
 -- The statusline fill char (fillchars.stl) renders with hl-StlNormal.
 hl(0, "StlNormal", { fg = p.charple, bg = p.bbq })
+
+local heading_colors = { p.dolly, p.guppy, p.lichen, p.bok, p.zest, p.yam }
+for i, color in ipairs(heading_colors) do
+  hl(0, "@markup.heading." .. i .. ".markdown", { fg = color, bold = true })
+end

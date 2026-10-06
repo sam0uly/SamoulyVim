@@ -211,10 +211,10 @@ Refer to [LazyVim documentation](https://lazyvim.github.io/installation) for gen
 - `<leader>f`: Telescope find files
 - `<leader>u`: UI related commands
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please open issues or pull requests.
 
-## 📄 License
+## License
 
-Apache v2 License - see LICENSE file for details.
+Apache v2 License - see [LICENSE](./LICENSE) file for details.

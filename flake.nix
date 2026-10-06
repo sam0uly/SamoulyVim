@@ -10,7 +10,12 @@
 
   };
 
-  outputs = { self, nixpkgs, opencode-flake }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      opencode-flake,
+    }:
 
     let
 
@@ -35,6 +40,7 @@
         fd
         lazygit
         gh
+        gh-dash
         gcc
         git
         go
@@ -48,11 +54,12 @@
 
         stylua
 
-        opencode
+        crush
 
       ];
 
-    in {
+    in
+    {
 
       packages.${system}.default = pkgs.writeShellApplication {
 
