@@ -19,7 +19,7 @@ return {
       watch = true,
       mux = {
         backend = "tmux",
-        enabled = true,
+        enabled = false,
         create = "terminal",
       },
       picker = "snacks",
