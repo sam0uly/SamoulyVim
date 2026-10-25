@@ -6,15 +6,12 @@
 
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    opencode-flake.url = "github:aodhanhayter/opencode-flake";
-
   };
 
   outputs =
     {
       self,
       nixpkgs,
-      opencode-flake,
     }:
 
     let
