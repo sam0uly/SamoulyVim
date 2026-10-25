@@ -2,6 +2,9 @@ return {
   {
     "folke/snacks.nvim",
     enabled = true,
+    opts = {
+      scroll = { enabled = true },
+    },
   },
   {
     "akinsho/toggleterm.nvim",
