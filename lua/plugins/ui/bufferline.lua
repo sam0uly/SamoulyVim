@@ -2,7 +2,7 @@
 -- NOTE: Tabline / Bufferline UI
 
 local c = {
-  bg = "#2D2C36",
+  bg = "#201F26",
   bg_dark = "#201F26",
   charcoal = "#3A3943",
   fg = "#BFBCC8",
@@ -83,6 +83,7 @@ return {
       -- stylua: ignore
       right_mouse_command = function(n) Snacks.bufdelete(n) end,
       diagnostics = "nvim_lsp",
+      tab_size = 0,
       always_show_bufferline = false,
       diagnostics_indicator = function(_, _, diag)
         local icons = LazyVim.config.icons.diagnostics
@@ -109,5 +110,10 @@ return {
   },
   config = function(_, opts)
     require("bufferline").setup(opts)
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = function()
+        pcall(function() require("bufferline.highlights").reset_icon_hl_cache() end)
+      end,
+    })
   end,
 }
